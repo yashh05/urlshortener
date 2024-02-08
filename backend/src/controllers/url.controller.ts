@@ -14,7 +14,7 @@ async function getAllUrl(req: Request, res: Response) {
     const { userId } = res.locals;
     const allUrl = await getUrlByUserId(userId);
     if (!allUrl) {
-      return res.status(404).json({ status: "fail", message: "No URl" });
+      return res.status(404).json({ status: "fail", error: "No URl" });
     } else {
       return res.status(200).json({ status: "success", urls: allUrl });
     }
@@ -31,7 +31,7 @@ async function redirectUrl(req: Request, res: Response) {
     const { shortenedUrl } = req.params;
     const urlDoc = await getUrlByShortenedUrl(shortenedUrl);
     if (!urlDoc) {
-      return res.status(404).json({ status: "fail", message: "wrong Url" });
+      return res.status(404).json({ status: "fail", error: "wrong Url" });
     }
     await urlDoc.increaseClicks();
     res.redirect(urlDoc.url);
@@ -52,7 +52,7 @@ async function addUrl(req: Request, res: Response) {
     if (checkExisting) {
       return res
         .status(404)
-        .json({ status: "fail", message: "Url already exists" });
+        .json({ status: "fail", error: "Url already exists" });
     }
 
     await getShortenedUrl(url, userId);
@@ -62,7 +62,7 @@ async function addUrl(req: Request, res: Response) {
     console.log(e.message);
     res
       .status(500)
-      .json({ status: "fail", message: ERROR_MESSAGE.INTERNAL_SERVER_ERROR });
+      .json({ status: "fail", error: ERROR_MESSAGE.INTERNAL_SERVER_ERROR });
   }
 }
 

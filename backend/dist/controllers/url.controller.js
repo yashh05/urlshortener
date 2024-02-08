@@ -65,7 +65,7 @@ function addUrl(req, res) {
             if (checkExisting) {
                 return res
                     .status(404)
-                    .json({ status: "fail", message: "Url already exists" });
+                    .json({ status: "fail", error: "Url already exists" });
             }
             yield (0, url_service_1.getShortenedUrl)(url, userId);
             res.status(200).json({ status: "success", message: "new url created" });
@@ -74,7 +74,7 @@ function addUrl(req, res) {
             console.log(e.message);
             res
                 .status(500)
-                .json({ status: "fail", message: errorMessages_1.default.INTERNAL_SERVER_ERROR });
+                .json({ status: "fail", error: errorMessages_1.default.INTERNAL_SERVER_ERROR });
         }
     });
 }
