@@ -21,7 +21,7 @@ export class UrlSchema {
   public clicks!: number;
 
   public async increaseClicks(this: DocumentType<UrlSchema>) {
-    this.clicks + 1;
+    this.clicks = this.clicks + 1;
     await this.save();
   }
 }

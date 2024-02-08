@@ -5,5 +5,6 @@ const ERROR_MESSAGE = {
     JWT_SIGNING_ERROR: "Error while signing jwt",
     USER_ALREADY_EXISTS: "User already exists",
     WRONG_CREDENTIALS: "You entered wrong credentials",
+    UNAUTHORIZED_USER: "User is not authorized",
 };
 exports.default = ERROR_MESSAGE;

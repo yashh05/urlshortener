@@ -3,33 +3,38 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import ERROR_MESSAGE from "../config/errorMessages";
 import sanitizedConfig from "../config/config";
 
-const authentication = (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const token: string = req.cookies.authentication;
-    const jwtSecret = process.env.JWT_SECRET;
+const extractToken = (req: Request): string | undefined => {
+  const token: string | undefined = req.cookies.authorization;
+  return token?.startsWith("Bearer") ? token.split(" ")[1] : undefined;
+};
 
-    if (!token || !token.startsWith("Bearer")) {
+const authenticationMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const token = extractToken(req);
+    if (!token) {
       throw new Error(ERROR_MESSAGE.UNAUTHORIZED_USER);
     }
 
-    const coded = token.split(" ")[1];
-    console.log(coded);
-
-    const { userId } = jwt.verify(
-      coded,
+    const decodedToken = jwt.verify(
+      token,
       sanitizedConfig.JWT_SECRET
     ) as JwtPayload;
-
-    if (!userId) {
+    if (!decodedToken.userId) {
       throw new Error(ERROR_MESSAGE.UNAUTHORIZED_USER);
     }
 
-    res.locals.userId = userId;
+    res.locals.userId = decodedToken.userId;
     next();
   } catch (err: any) {
-    console.log(err);
-    return res.status(401).json({ status: "fail", error: err.message });
+    console.error(err);
+    return res
+      .status(401)
+      .json({ status: "fail", error: ERROR_MESSAGE.UNAUTHORIZED_USER });
   }
 };
 
-export default authentication;
+export default authenticationMiddleware;

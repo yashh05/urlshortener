@@ -24,7 +24,7 @@ const userModel_1 = require("./userModel");
 class UrlSchema {
     increaseClicks() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.clicks + 1;
+            this.clicks = this.clicks + 1;
             yield this.save();
         });
     }
