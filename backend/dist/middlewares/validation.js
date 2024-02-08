@@ -9,9 +9,19 @@ const validate = (schema) => (req, res, next) => {
     }
     catch (error) {
         if (error instanceof zod_1.ZodError) {
+            const pathError = error.errors.map((singleError) => {
+                console.log(singleError.path[0], singleError.message);
+                const path = singleError.path[0].toString();
+                const newError = {
+                    path,
+                    patherror: singleError.message,
+                };
+                return newError;
+            });
             return res.status(400).json({
                 status: "fail",
-                error: error.errors,
+                type: "ZodError",
+                error: pathError,
             });
         }
         else {
