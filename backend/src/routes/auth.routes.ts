@@ -1,7 +1,7 @@
 import express from "express";
 import { handleSignin, handleSignup } from "../controllers/auth.controller";
 import { validate } from "../middlewares/validation";
-import { signinSchema, signupSchema } from "../schema/auth.schema";
+import { signinSchema, signupSchema } from "../zodSchema/auth.schema";
 
 const router = express.Router();
 
