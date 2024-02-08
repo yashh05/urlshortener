@@ -8,7 +8,31 @@
 }
 
 html,
-body {
-  height: 100%;
+body,
+#root {
+  height: 100vh;
+  width: 100vw;
+  background-color: #eee1bd;
+}
+
+.underline-component {
+  position: relative;
+  transition: all 100ms linear;
+}
+
+.underline-component::after {
+  content: "";
+  width: 0px;
+  height: 2px;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  background-color: slategray;
+  transition: all linear 0.3s; /* Add transition property here if needed */
+}
+
+.underline-component:hover::after {
   width: 100%;
+  left: 0;
 }
