@@ -18,6 +18,9 @@ export default {
       fontFamily: {
         poppins: "Poppins, sans-serif",
         roboto: "Roboto, sans- serif"
+      },
+      colors: {
+        greyish: "#364051",
       }
     },
   },

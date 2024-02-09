@@ -29,6 +29,7 @@ async function getAllUrl(req: Request, res: Response) {
 async function redirectUrl(req: Request, res: Response) {
   try {
     const { shortenedUrl } = req.params;
+    console.log(shortenedUrl);
     const urlDoc = await getUrlByShortenedUrl(shortenedUrl);
     if (!urlDoc) {
       return res.status(404).json({ status: "fail", error: "wrong Url" });
@@ -48,7 +49,7 @@ async function addUrl(req: Request, res: Response) {
     const { userId } = res.locals;
     const { url } = req.body;
 
-    const checkExisting = await getUrl(url);
+    const checkExisting = await getUrl(url, userId);
     if (checkExisting) {
       return res
         .status(404)

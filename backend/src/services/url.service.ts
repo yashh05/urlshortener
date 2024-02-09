@@ -8,9 +8,10 @@ async function getUrlByUserId(userId: mongoose.Types.ObjectId) {
   });
 }
 
-async function getUrl(url: string) {
+async function getUrl(url: string, userId: mongoose.Types.ObjectId) {
   return await Url.findOne({
     url,
+    userId,
   });
 }
 

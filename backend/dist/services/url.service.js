@@ -23,10 +23,11 @@ function getUrlByUserId(userId) {
     });
 }
 exports.getUrlByUserId = getUrlByUserId;
-function getUrl(url) {
+function getUrl(url, userId) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield urlModel_1.default.findOne({
             url,
+            userId,
         });
     });
 }

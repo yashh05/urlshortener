@@ -8,7 +8,7 @@ import {
 import { UserSchema } from "./userModel";
 
 export class UrlSchema {
-  @prop({ required: true, unique: true })
+  @prop({ required: true })
   public url!: string;
 
   @prop({ required: true, unique: true })

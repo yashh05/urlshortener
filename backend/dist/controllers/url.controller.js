@@ -21,7 +21,7 @@ function getAllUrl(req, res) {
             const { userId } = res.locals;
             const allUrl = yield (0, url_service_1.getUrlByUserId)(userId);
             if (!allUrl) {
-                return res.status(404).json({ status: "fail", message: "No URl" });
+                return res.status(404).json({ status: "fail", error: "No URl" });
             }
             else {
                 return res.status(200).json({ status: "success", urls: allUrl });
@@ -40,9 +40,10 @@ function redirectUrl(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { shortenedUrl } = req.params;
+            console.log(shortenedUrl);
             const urlDoc = yield (0, url_service_1.getUrlByShortenedUrl)(shortenedUrl);
             if (!urlDoc) {
-                return res.status(404).json({ status: "fail", message: "wrong Url" });
+                return res.status(404).json({ status: "fail", error: "wrong Url" });
             }
             yield urlDoc.increaseClicks();
             res.redirect(urlDoc.url);
@@ -61,7 +62,7 @@ function addUrl(req, res) {
         try {
             const { userId } = res.locals;
             const { url } = req.body;
-            const checkExisting = yield (0, url_service_1.getUrl)(url);
+            const checkExisting = yield (0, url_service_1.getUrl)(url, userId);
             if (checkExisting) {
                 return res
                     .status(404)

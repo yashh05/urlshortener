@@ -31,7 +31,7 @@ class UrlSchema {
 }
 exports.UrlSchema = UrlSchema;
 __decorate([
-    (0, typegoose_1.prop)({ required: true, unique: true }),
+    (0, typegoose_1.prop)({ required: true }),
     __metadata("design:type", String)
 ], UrlSchema.prototype, "url", void 0);
 __decorate([

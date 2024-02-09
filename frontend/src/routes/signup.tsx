@@ -36,7 +36,7 @@ const Signup = () => {
 
       if (response.ok) {
         console.log(response);
-        navigate("/");
+        navigate("/dashboard");
       } else {
         const finalResponse = await response.json();
 

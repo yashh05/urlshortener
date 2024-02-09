@@ -32,7 +32,7 @@ const Signin = () => {
       });
 
       if (response.ok) {
-        navigate("/");
+        navigate("/dashboard");
       } else {
         const finalResponse = await response.json();
 
